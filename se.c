@@ -6,12 +6,71 @@
 #define REMOTE_SERVER_PORT 1501
 #define MAX_MSG 100
 
-void envia_resposta(char endereco[], unsigned int porta, char mensagem[]){
-    printf("De %s:UDP%u : %s \n", endereco, porta, mensagem);
+typedef struct arquivo{
+    char nome[100];
+    char ip[16];
+}t_arquivo;
 
-    char resposta[100];
-	printf("Digite a resposta: ");
-    scanf("%s", &resposta);
+void escrever_arquivo(t_arquivo arquivos[]){
+	int i;
+	int len_vet = sizeof(arquivos) - 1; // tamanho do vetor
+	FILE * arq;
+
+	// abre o arquivo para escrita no modo append (adiciona ao final)
+	arq = fopen("dados.bin", "ab");
+
+	if(arq != NULL){
+		for(i = 0; i < len_vet; i++)			
+			fwrite(&arquivos[i], sizeof(t_arquivo), 1, arq);// escreve cada elemento do vetor no arquivo
+		fclose(arq); // aborta o programa
+	}else{
+		printf("\nErro ao abrir o arquivo para leitura!\n");
+		exit(1); // aborta o programa
+	}
+}
+
+int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
+	// abre o arquivo para leitura
+	FILE * arq = fopen("dados.bin", "rb");
+
+	if(arq != NULL){
+		int indice = 0;
+		while(1){
+			t_arquivo p;
+
+			// fread le os dados e retorna a quantidade de elementos lidos com sucesso
+			size_t r = fread(&p, sizeof(t_arquivo), 1, arq);
+
+			// se retorno for menor que o count, então sai do loop
+			if(r < 1)
+				break;
+			else
+				aux_arquivos[indice++] = p;
+		}
+		fclose(arq); // fecha o arquivo
+		return indice;
+	}else{
+		printf("Erro ao abrir o arquivo para leitura!\n");
+		exit(1); // aborta o programa
+	}
+}
+
+void envia_resposta(char endereco[], unsigned int porta, char mensagem[]){
+    t_arquivo vet_arquivos[MAX_MSG];
+    int len_vet = ler_arquivo(vet_arquivos);
+    int j;
+    char resposta[16];
+
+
+	// mostrando os elementos do vetor vet_arquivos
+	for(j= 0; j < len_vet; j++){
+        if(strcmp(vet_arquivos[j].nome,mensagem) == 0){
+            fflush(stdin);
+            strcpy(resposta, vet_arquivos[j].ip);
+        }
+	}
+
+    printf("De %s:UDP%u : %s \n", endereco, porta, mensagem);
 	
     WSADATA wsaData;
     LPHOSTENT hostEntry;
