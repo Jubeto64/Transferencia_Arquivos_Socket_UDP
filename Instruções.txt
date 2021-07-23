@@ -1,0 +1,9 @@
+Compilação no CMD:
+Abrir uma janela para rodar o servidor e digitar os comandos:
+cd "diretorio arquivo"
+gcc se.c -o se.exe -l ws2_32
+
+Abrir uma janela para rodar o cliente e digitar os comandos:
+cd "diretorio arquivo"
+gcc cli.c -o cli.exe -l ws2_32
+
