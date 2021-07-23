@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
 
-    // CRIAÇÃO DO SOCKET
+    // CRIACAO DO SOCKET
     socks = socket(AF_INET, SOCK_DGRAM, 0);
     if(socks < 0) {
         printf("\nValor de socks: %d", socks);
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servAddr.sin_port = htons(LOCAL_SERVER_PORT);
 
-    // CRIAÇÃO DO SOCKET
+    // CRIAcaO DO SOCKET
     socks = socket(AF_INET, SOCK_DGRAM, 0);
     if(socks < 0) {
         printf("Socket nao pode ser aberto\n");
@@ -38,13 +38,13 @@ int main(int argc, char *argv[]) {
     // TESTA SE A PORTA ESTA DISPONIVEL
     rc = bind (socks, (struct sockaddr *) &servAddr,sizeof(servAddr));
     if(rc<0) {
-        printf("Vinculo com numero de porta impossibilidado %d \n", LOCAL_SERVER_PORT);
+        printf("Vinculo com numero de porta impossibilitado %d \n", LOCAL_SERVER_PORT);
         return 1;
     }
 
     printf("Esperando pelos dados na porta UDP %u\n",LOCAL_SERVER_PORT);
 
-    // LAÇO INFINITO DE ESPERA DO SERVIDOR
+    // LACO INFINITO DE ESPERA DO SERVIDOR
     while(1) {
 
         // INICIANDO BUFFER

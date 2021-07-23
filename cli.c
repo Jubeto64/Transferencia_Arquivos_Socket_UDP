@@ -8,7 +8,8 @@
 
 int main(int argc, char *argv[]) {
 	char nome_arquivo[100];
-	scanf("%s", &nome_arquivo);
+	printf("Digite o nome do arquivo: ");
+    scanf("%s", &nome_arquivo);
 	
     WSADATA wsaData;
     LPHOSTENT hostEntry;
@@ -16,17 +17,10 @@ int main(int argc, char *argv[]) {
     int socks, rc, i;
     struct sockaddr_in cliAddr, remoteServAddr;
 
-    // CHECANDO A AUSENCIA DE ARGUMENTOS
-    
-	/*if(argc <3) {
-        printf("Digite (exemplo): 127.0.0.1 Mensagem1 Mensagem2");
-        return(1);
-    }*/
-
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
 
-    // VALIDA ENDEREÇO DE IP RECEBIDO COMO ARGUMENTO
+    // VALIDA ENDERECO DE IP RECEBIDO COMO ARGUMENTO
     hostEntry = gethostbyname("127.0.0.1");
     if (hostEntry == NULL){
        printf("Host desconhecido %s\n", argv[1]);
@@ -36,7 +30,7 @@ int main(int argc, char *argv[]) {
     // VINCULAR A PORTA DO SERVIDOR REMOTO
     remoteServAddr.sin_family = hostEntry->h_addrtype ;
     remoteServAddr.sin_addr = *((LPIN_ADDR)*hostEntry->h_addr_list);
-    remoteServAddr.sin_port = htons(REMOTE_SERVER_PORT);	// NUMERO DA PORTA VINDA PELA LINHDA DE COMANDO
+    remoteServAddr.sin_port = htons(REMOTE_SERVER_PORT);	// NUMERO DA PORTA VINDA PELA LINHA DE COMANDO
 
     // CRIANDO SOCKET
     socks = socket(AF_INET,SOCK_DGRAM,0);
@@ -56,19 +50,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // ENVIANDO OS DADOS
-    /*for(i=1;i<argc;i++) {
-        rc = sendto(socks, argv[i], strlen(argv[i])+1, 0,
-            (LPSOCKADDR) &remoteServAddr,
-            sizeof(struct sockaddr));
-
-        if(rc<0) {
-          printf("Nao pode enviar dados %d \n",i-1);
-          closesocket(socks);
-          return 1;
-        }
-    }*/
-    
+    // ENVIANDO OS DADOS    
     rc = sendto(socks, nome_arquivo, strlen(nome_arquivo)+1, 0,
         (LPSOCKADDR) &remoteServAddr,
         sizeof(struct sockaddr));
