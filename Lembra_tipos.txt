@@ -1,0 +1,4 @@
+//lembrando tipos da função que junta tudo
+envia_resposta = 0
+envia_resposta_cliente = 1
+envia_resposta_c2 = 2
