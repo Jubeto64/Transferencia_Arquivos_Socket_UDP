@@ -38,6 +38,7 @@ int main(){
     servaddr.sin_port = htons(8000);
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
+    int len = sizeof(servaddr);
     int opcao = 1;
 
     while(opcao != 4){
@@ -49,7 +50,6 @@ int main(){
                 
             case 1:
                 char num = 1;
-                int len = sizeof(servaddr);
                 sendto(socketServer, &num, sizeof(num), 0,(struct sockaddr *)&servaddr, sizeof(struct sockaddr));
 
                 printf("Digite o nome do arquivo: \n");
