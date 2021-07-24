@@ -79,7 +79,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
 }
 
 int main(int argc, char *argv[]) {
-	 int socks, rc, i,k;
+	int socks, rc, i,k;
     struct sockaddr_in cliAddr, remoteServAddr;
     char nome_arquivo[100];
 	char vet_resposta[MAX_MSG][MAX_MSG];
@@ -130,6 +130,9 @@ int main(int argc, char *argv[]) {
 
     // ENVIANDO OS DADOS    
     rc = sendto(socks, nome_arquivo, strlen(nome_arquivo)+1, 0,
+        (LPSOCKADDR) &remoteServAddr,
+        sizeof(struct sockaddr));
+    rc = sendto(socks, "FIM", 4, 0,
         (LPSOCKADDR) &remoteServAddr,
         sizeof(struct sockaddr));
 
