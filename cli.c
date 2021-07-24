@@ -10,9 +10,12 @@
 void recebe_resposta(){
     WSADATA wsaData;
 
-    int socks, rc, n, cliLen;
+    int socks, rc, n, cliLen,k;
     struct sockaddr_in cliAddr, servAddr;
     char msg[MAX_MSG];
+    char vet_resposta[MAX_MSG][MAX_MSG];
+    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+        strcpy(vet_resposta[k], "");
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
@@ -30,7 +33,7 @@ void recebe_resposta(){
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servAddr.sin_port = htons(LOCAL_SERVER_PORT);
 
-    // CRIAcaO DO SOCKET
+    // CRIACAO DO SOCKET
     socks = socket(AF_INET, SOCK_DGRAM, 0);
     if(socks < 0) {
         printf("Socket nao pode ser aberto\n");
@@ -47,6 +50,7 @@ void recebe_resposta(){
     printf("Esperando pelos dados na porta UDP %u\n",LOCAL_SERVER_PORT);
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
+    k=0;
     while(1) {
 
         // INICIANDO BUFFER
@@ -61,12 +65,22 @@ void recebe_resposta(){
         }
 
         // IMPRIMIR MENSAGEM RECEBIDA
-        printf("De %s:UDP%u : %s \n", inet_ntoa(cliAddr.sin_addr), ntohs(cliAddr.sin_port),msg);
         if(strcmp(msg,"FIM") == 0){
+            fflush(stdin);
             break;
+        }
+        if(strcmp(msg,"") != 0){
+            fflush(stdin);
+            strcpy(vet_resposta[k], msg);
+            k++;
         }
 
     } // FIM DO LOOP DO SERVIDOR
+    for(k=0; k<MAX_MSG; k++){      
+        if(strcmp(vet_resposta[k],"") != 0)
+            printf("Resposta Recebida: %s Posicao:%d\n", vet_resposta[k], k);
+        else break;
+    }
 
     closesocket(socks);
     WSACleanup();
