@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <winsock.h>
 #include <stdio.h>
+#include <string.h>
 
 #define LOCAL_SERVER_PORT 1500
 #define REMOTE_SERVER_PORT 1501
@@ -72,6 +73,7 @@ void envia_resposta(char endereco[], unsigned int porta, char mensagem[]){
             k++;
         }
 	}
+    strcpy(vet_resposta[k], "FIM");
 
     printf("De %s:UDP%u : %s \n", endereco, porta, mensagem);
 	

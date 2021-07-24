@@ -62,6 +62,9 @@ void recebe_resposta(){
 
         // IMPRIMIR MENSAGEM RECEBIDA
         printf("De %s:UDP%u : %s \n", inet_ntoa(cliAddr.sin_addr), ntohs(cliAddr.sin_port),msg);
+        if(strcmp(msg,"FIM") == 0){
+            break;
+        }
 
     } // FIM DO LOOP DO SERVIDOR
 
