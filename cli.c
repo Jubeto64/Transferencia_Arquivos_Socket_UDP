@@ -137,21 +137,42 @@ int main(int argc, char *argv[]) {
     char nome_arquivo[100];
 	char vet_resposta[MAX_MSG][MAX_MSG];
 
-    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-        strcpy(vet_resposta[k], "");
-	
-    printf("Digite o nome do arquivo: ");
-    scanf("%s", &nome_arquivo);
+    int opcao = 1;
 
-    envia_resposta(nome_arquivo);
+    while(opcao != 3){
+        printf("\tMenu\nEscolha uma opcao: \n1. Enviar arquivo\n2. Receber arquivo\n3. Sair\n");
+        
+        printf("Digite a opcao que deseja: ");
+        scanf("%d", &opcao);
 
-    recebe_resposta(vet_resposta);
+        switch(opcao){
+            case 1:
+                for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+                    strcpy(vet_resposta[k], "");
+                
+                printf("Digite o nome do arquivo: ");
+                scanf("%s", &nome_arquivo);
 
+                envia_resposta(nome_arquivo);
 
-    for(k=0; k<MAX_MSG; k++){      
-        if(strcmp(vet_resposta[k],"") != 0)
-            printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
-        else break;
+                recebe_resposta(vet_resposta);
+
+                for(k=0; k<MAX_MSG; k++){      
+                    if(strcmp(vet_resposta[k],"") != 0)
+                        printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+                    else break;
+                }
+            break;
+
+            case 2:
+            break;
+
+            case 3:
+            break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
     }
 
     return 0;
