@@ -11,7 +11,7 @@
 
 int main(){
     int socketServer, socketCliente;
-    char fileName[2000], file_buffer[2000],c,caufile[70000],audio[50000],video[50000];
+    char fileName[2000], file_buffer[2000],c,caufile[70000];
     char IP[16];
 
     struct sockaddr_in servaddr, cliaddr, cliaddr1, cliaddr2;
@@ -38,27 +38,28 @@ int main(){
     servaddr.sin_port = htons(8000);
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    char num = 1;
-    int len = sizeof(servaddr);
-    sendto(socketServer, &num, sizeof(num), 0,(struct sockaddr *)&servaddr, sizeof(struct sockaddr));
-
-    printf("Digite o nome do arquivo: \n");
-    scanf("%s", fileName);
-    sendto(socketServer, fileName, strlen(fileName), 0,(struct sockaddr *)&servaddr, sizeof(struct sockaddr));
-
-    recvfrom(socketServer, IP, 1024,0,(struct sockaddr *)&servaddr, &len);
-    printf("IP: %s\n", IP);
-
     int opcao = 1;
 
-    while(opcao != 3){
-        printf("          Menu          \nEscolha uma opção: \n1. Enviar arquivo\n2. Receber arquivo\n3. Sair");
+    while(opcao != 4){
+        printf("          Menu          \nEscolha uma opção: \n1. Enviar arquivo\n2. Receber arquivo\n3. Sair\n");
         printf("Digite a opção que deseja: ");
         scanf("%d", &opcao);
 
         switch(opcao){
-
+                
             case 1:
+                char num = 1;
+                int len = sizeof(servaddr);
+                sendto(socketServer, &num, sizeof(num), 0,(struct sockaddr *)&servaddr, sizeof(struct sockaddr));
+
+                printf("Digite o nome do arquivo: \n");
+                scanf("%s", fileName);
+                sendto(socketServer, fileName, strlen(fileName), 0,(struct sockaddr *)&servaddr, sizeof(struct sockaddr));
+
+                recvfrom(socketServer, IP, 1024,0,(struct sockaddr *)&servaddr, &len);
+                printf("IP: %s\n", IP);
+
+            case 2:
                 recvfrom(socketCliente, fileName, strlen(fileName), 0, (struct sockaddr *)&cliaddr2, &len);
 
                 FILE *fp;
@@ -87,7 +88,7 @@ int main(){
                 fclose(fp);
                 break;
 
-            case 2:
+            case 3:
 
                 //Setando o endereço
                 cliaddr2.sin_family = AF_INET;
@@ -115,7 +116,7 @@ int main(){
                 memset(fileName, '\0', sizeof(fileName));
                 fclose(fp);
 
-            case 3:
+            case 4:
                 fclose(fp);
                 break;
         }
