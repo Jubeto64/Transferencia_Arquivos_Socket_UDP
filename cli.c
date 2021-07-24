@@ -59,9 +59,9 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
 }
 
 void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
-    //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
-    //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
-    //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
+    //tipo 0 cliente recebe resposta do servidor
+    //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
+    //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
     WSADATA wsaData;
 
     int socks, rc, n, cliLen, k, porta;
@@ -97,11 +97,11 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
     // TESTA SE A PORTA ESTA DISPONIVEL
     rc = bind (socks, (struct sockaddr *) &servAddr,sizeof(servAddr));
     if(rc<0) {
-        printf("Vinculo com numero de porta impossibilitado %d \n", REMOTE_CLIENT_PORT);
+        printf("Vinculo com numero de porta impossibilitado %d \n", porta);
         return;
     }
 
-    printf("Esperando pelos dados na porta UDP %u\n",REMOTE_CLIENT_PORT);
+    printf("Esperando pelos dados na porta UDP %d\n",porta);
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
@@ -261,6 +261,19 @@ int main(int argc, char *argv[]) {
                 }
 
                 envia_resposta(nome_arquivo, 1);
+
+                for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+                    strcpy(vet_resposta[k], "");
+
+                recebe_resposta(vet_resposta, 1);
+
+                for(k=0; k<MAX_MSG; k++){      
+                    if(strcmp(vet_resposta[k],"") != 0)
+                        printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+                    else break;
+                }
+                
+
             break;
 
             case 2:
