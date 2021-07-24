@@ -78,22 +78,14 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
     WSACleanup();
 }
 
-int main(int argc, char *argv[]) {
-	int socks, rc, i,k;
-    struct sockaddr_in cliAddr, remoteServAddr;
-    char nome_arquivo[100];
-	char vet_resposta[MAX_MSG][MAX_MSG];
-
-    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-        strcpy(vet_resposta[k], "");
+void envia_resposta(char mensagem[]){
+    int j, k;
 	
     WSADATA wsaData;
     LPHOSTENT hostEntry;
 
-   
-    
-    printf("Digite o nome do arquivo: ");
-    scanf("%s", &nome_arquivo);
+    int socks, rc, i;
+    struct sockaddr_in cliAddr, remoteServAddr;
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
@@ -102,7 +94,7 @@ int main(int argc, char *argv[]) {
     hostEntry = gethostbyname("127.0.0.1");
     if (hostEntry == NULL){
        printf("Host desconhecido 127.0.0.1\n");
-       return 1;
+       return;
     }
 
     // VINCULAR A PORTA DO SERVIDOR REMOTO
@@ -114,7 +106,7 @@ int main(int argc, char *argv[]) {
     socks = socket(AF_INET,SOCK_DGRAM,0);
     if(socks < 0) {
         printf("Socket nao pode ser aberto\n");
-        return 1;
+        return;
     }
 
     /* VINCULAR A PORTA DO CLIENTE */
@@ -125,26 +117,36 @@ int main(int argc, char *argv[]) {
     rc = bind(socks, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
     if(rc<0) {
         printf("Nao pode vincular a porta\n");
-        return 1;
+        return;
     }
 
-    // ENVIANDO OS DADOS    
-    rc = sendto(socks, nome_arquivo, strlen(nome_arquivo)+1, 0,
+    // ENVIANDO OS DADOS
+    rc = sendto(socks, mensagem, strlen(mensagem)+1, 0,
         (LPSOCKADDR) &remoteServAddr,
         sizeof(struct sockaddr));
     rc = sendto(socks, "FIM", 4, 0,
         (LPSOCKADDR) &remoteServAddr,
         sizeof(struct sockaddr));
 
-    if(rc<0) {
-      printf("Nao pode enviar dados %d \n",i-1);
-      closesocket(socks);
-      return 1;
-    }
-
     closesocket(socks);
     WSACleanup();
+}
+
+int main(int argc, char *argv[]) {
+	int i,k;
+    char nome_arquivo[100];
+	char vet_resposta[MAX_MSG][MAX_MSG];
+
+    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+        strcpy(vet_resposta[k], "");
+	
+    printf("Digite o nome do arquivo: ");
+    scanf("%s", &nome_arquivo);
+
+    envia_resposta(nome_arquivo);
+
     recebe_resposta(vet_resposta);
+
 
     for(k=0; k<MAX_MSG; k++){      
         if(strcmp(vet_resposta[k],"") != 0)
