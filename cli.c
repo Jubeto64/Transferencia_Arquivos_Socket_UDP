@@ -58,7 +58,7 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
 	}
 }
 
-void recebe_resposta_c2(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
     //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
     //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
     //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
@@ -82,6 +82,7 @@ void recebe_resposta_c2(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
     // VINCULAR A PORTA DO SERVIDOR
     if(tipo == 2)   porta = REMOTE_CLIENT_PORT;
     if(tipo == 1)   porta = LOCAL_CLIENT_PORT;
+    if(tipo == 0)   porta = LOCAL_SERVER_PORT;
     servAddr.sin_family = AF_INET;
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servAddr.sin_port = htons(porta);
@@ -101,77 +102,6 @@ void recebe_resposta_c2(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
     }
 
     printf("Esperando pelos dados na porta UDP %u\n",REMOTE_CLIENT_PORT);
-
-    // LACO INFINITO DE ESPERA DO SERVIDOR
-    k=0;
-    while(1) {
-
-        // INICIANDO BUFFER
-        memset(msg,0x0,MAX_MSG);
-
-        // RECEBENDO UMA MENSGAEM
-        cliLen = sizeof(cliAddr);
-        n = recvfrom(socks, msg, MAX_MSG, 0, (struct sockaddr *) &cliAddr, &cliLen);
-
-        if(n<0) {
-          printf("Nao pode receber os dados \n");
-        }
-
-        // IMPRIMIR MENSAGEM RECEBIDA
-        if(strcmp(msg,"FIM") == 0){
-            fflush(stdin);
-            break;
-        }
-        if(strcmp(msg,"") != 0){
-            fflush(stdin);
-            strcpy(vet_resposta[k], msg);
-            k++;
-        }
-
-    } // FIM DO LOOP DO SERVIDOR
-
-    closesocket(socks);
-    WSACleanup();
-}
-
-void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
-    WSADATA wsaData;
-
-    int socks, rc, n, cliLen,k;
-    struct sockaddr_in cliAddr, servAddr;
-    char msg[MAX_MSG];
-
-    // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
-    WSAStartup(MAKEWORD(2,1),&wsaData);
-
-    // CRIACAO DO SOCKET
-    socks = socket(AF_INET, SOCK_DGRAM, 0);
-    if(socks < 0) {
-        printf("\nValor de socks: %d", socks);
-        printf("Socket nao pode ser aberto\n");
-        return;
-    }
-
-    // VINCULAR A PORTA DO SERVIDOR
-    servAddr.sin_family = AF_INET;
-    servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servAddr.sin_port = htons(LOCAL_SERVER_PORT);
-
-    // CRIACAO DO SOCKET
-    socks = socket(AF_INET, SOCK_DGRAM, 0);
-    if(socks < 0) {
-        printf("Socket nao pode ser aberto\n");
-        return;
-    }
-
-    // TESTA SE A PORTA ESTA DISPONIVEL
-    rc = bind (socks, (struct sockaddr *) &servAddr,sizeof(servAddr));
-    if(rc<0) {
-        printf("Vinculo com numero de porta impossibilitado %d \n", LOCAL_SERVER_PORT);
-        return;
-    }
-
-    printf("Esperando pelos dados na porta UDP %u\n",LOCAL_SERVER_PORT);
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
@@ -322,7 +252,7 @@ int main(int argc, char *argv[]) {
 
                 envia_resposta(nome_arquivo,0);
 
-                recebe_resposta(vet_resposta);
+                recebe_resposta(vet_resposta, 0);
 
                 for(k=0; k<MAX_MSG; k++){      
                     if(strcmp(vet_resposta[k],"") != 0)
@@ -337,7 +267,7 @@ int main(int argc, char *argv[]) {
                 for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
                     strcpy(vet_resposta[k], "");
 
-                recebe_resposta_c2(vet_resposta, 2);
+                recebe_resposta(vet_resposta, 2);
 
                 k=0;
                 while(k<MAX_MSG){
