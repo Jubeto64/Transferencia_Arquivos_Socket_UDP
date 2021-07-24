@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define LOCAL_SERVER_PORT 1502
-#define REMOTE_SERVER_PORT 1503
+#define REMOTE_CLIENT_PORT 1502
+#define LOCAL_CLIENT_PORT 1503
 #define MAX_MSG 100
 
 typedef struct arquivo{
@@ -56,7 +56,7 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
 	}
 }
 
-void envia_resposta(char mensagem[]){
+void envia_resposta_c2(char mensagem[]){
     t_arquivo vet_arquivos[MAX_MSG];
     int j, k;
     char vet_resposta[MAX_MSG][16];
@@ -96,7 +96,7 @@ void envia_resposta(char mensagem[]){
     // VINCULAR A PORTA DO SERVIDOR REMOTO
     remoteServAddr.sin_family = hostEntry->h_addrtype ;
     remoteServAddr.sin_addr = *((LPIN_ADDR)*hostEntry->h_addr_list);
-    remoteServAddr.sin_port = htons(REMOTE_SERVER_PORT);	// NUMERO DA PORTA VINDA PELA LINHA DE COMANDO
+    remoteServAddr.sin_port = htons(LOCAL_CLIENT_PORT);	// NUMERO DA PORTA VINDA PELA LINHA DE COMANDO
 
     // CRIANDO SOCKET
     socks = socket(AF_INET,SOCK_DGRAM,0);
@@ -132,7 +132,7 @@ void envia_resposta(char mensagem[]){
     WSACleanup();
 }
 
-void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
+void recebe_resposta_c2(char vet_resposta[MAX_MSG][MAX_MSG]){
     WSADATA wsaData;
 
     int socks, rc, n, cliLen,k;
@@ -153,7 +153,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
     // VINCULAR A PORTA DO SERVIDOR
     servAddr.sin_family = AF_INET;
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servAddr.sin_port = htons(LOCAL_SERVER_PORT);
+    servAddr.sin_port = htons(REMOTE_CLIENT_PORT);
 
     // CRIACAO DO SOCKET
     socks = socket(AF_INET, SOCK_DGRAM, 0);
@@ -165,11 +165,11 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
     // TESTA SE A PORTA ESTA DISPONIVEL
     rc = bind (socks, (struct sockaddr *) &servAddr,sizeof(servAddr));
     if(rc<0) {
-        printf("Vinculo com numero de porta impossibilitado %d \n", LOCAL_SERVER_PORT);
+        printf("Vinculo com numero de porta impossibilitado %d \n", REMOTE_CLIENT_PORT);
         return;
     }
 
-    printf("Esperando pelos dados na porta UDP %u\n",LOCAL_SERVER_PORT);
+    printf("Esperando pelos dados na porta UDP %u\n",REMOTE_CLIENT_PORT);
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
@@ -213,7 +213,7 @@ int main(int argc, char *argv[]) {
     for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
         strcpy(vet_resposta[k], "");
 
-    recebe_resposta(vet_resposta);
+    recebe_resposta_c2(vet_resposta);
 
     k=0;
     while(k<MAX_MSG){
@@ -224,7 +224,7 @@ int main(int argc, char *argv[]) {
     }
 
     if(k > 0){
-        envia_resposta(vet_resposta[0]);
+        envia_resposta_c2(vet_resposta[0]);
     }
 
     return 0;
