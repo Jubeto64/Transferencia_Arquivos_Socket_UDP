@@ -58,15 +58,18 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
 void envia_resposta(char endereco[], unsigned int porta, char mensagem[]){
     t_arquivo vet_arquivos[MAX_MSG];
     int len_vet = ler_arquivo(vet_arquivos);
-    int j;
-    char resposta[16];
+    int j, k;
+    char vet_resposta[MAX_MSG][16];
+    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+        strcpy(vet_resposta[k], "");
 
-
-	// mostrando os elementos do vetor vet_arquivos
+	// inserindo no vetor de respostas os ips dos elementos do vetor vet_arquivos que possuem o arquivo com nome desejado
+    k=0;
 	for(j= 0; j < len_vet; j++){
         if(strcmp(vet_arquivos[j].nome,mensagem) == 0){
             fflush(stdin);
-            strcpy(resposta, vet_arquivos[j].ip);
+            strcpy(vet_resposta[k], vet_arquivos[j].ip);
+            k++;
         }
 	}
 
@@ -111,15 +114,16 @@ void envia_resposta(char endereco[], unsigned int porta, char mensagem[]){
         return;
     }
 
-    // ENVIANDO OS DADOS    
-    rc = sendto(socks, resposta, strlen(resposta)+1, 0,
-        (LPSOCKADDR) &remoteServAddr,
-        sizeof(struct sockaddr));
-
-    if(rc<0) {
-      printf("Nao pode enviar dados %d \n",i-1);
-      closesocket(socks);
-      return;
+    // ENVIANDO OS DADOS
+    for(k=0; k<MAX_MSG; k++){
+        if(strcmp(vet_resposta[k],"") != 0){
+            rc = sendto(socks, vet_resposta[k], strlen(vet_resposta[k])+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
+            if(rc<0) {
+                printf("Nao pode enviar dados %d \n",i-1);
+                closesocket(socks);
+                return;
+            }    
+        }else   break;
     }
 
     closesocket(socks);

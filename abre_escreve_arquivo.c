@@ -60,7 +60,7 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX]){
 int main(int argc, char *argv[])
 {
 	// vetor que será escrito no arquivo
-	t_arquivo arquivos[] = {{"Californication", "192.168.0.0"}, {"Otherside", "192.168.0.1"}, {"Sera", "192.168.0.2"}};
+	t_arquivo arquivos[] = {{"Californication", "192.168.0.3"}, {"Otherside", "192.168.0.4"}, {"Sera", "192.168.0.5"}};
 
 	// vetor para onde serão carregados os dados
 	// esse vetor foi criado para demonstrar que realmente funciona,
