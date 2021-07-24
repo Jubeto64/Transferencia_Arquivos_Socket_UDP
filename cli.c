@@ -7,15 +7,12 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
-void recebe_resposta(){
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG]){
     WSADATA wsaData;
 
     int socks, rc, n, cliLen,k;
     struct sockaddr_in cliAddr, servAddr;
     char msg[MAX_MSG];
-    char vet_resposta[MAX_MSG][MAX_MSG];
-    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-        strcpy(vet_resposta[k], "");
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
@@ -76,26 +73,27 @@ void recebe_resposta(){
         }
 
     } // FIM DO LOOP DO SERVIDOR
-    for(k=0; k<MAX_MSG; k++){      
-        if(strcmp(vet_resposta[k],"") != 0)
-            printf("Resposta Recebida: %s Posicao:%d\n", vet_resposta[k], k);
-        else break;
-    }
 
     closesocket(socks);
     WSACleanup();
 }
 
 int main(int argc, char *argv[]) {
-	char nome_arquivo[100];
-	printf("Digite o nome do arquivo: ");
-    scanf("%s", &nome_arquivo);
+	 int socks, rc, i,k;
+    struct sockaddr_in cliAddr, remoteServAddr;
+    char nome_arquivo[100];
+	char vet_resposta[MAX_MSG][MAX_MSG];
+
+    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+        strcpy(vet_resposta[k], "");
 	
     WSADATA wsaData;
     LPHOSTENT hostEntry;
 
-    int socks, rc, i;
-    struct sockaddr_in cliAddr, remoteServAddr;
+   
+    
+    printf("Digite o nome do arquivo: ");
+    scanf("%s", &nome_arquivo);
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
@@ -143,7 +141,13 @@ int main(int argc, char *argv[]) {
 
     closesocket(socks);
     WSACleanup();
-    recebe_resposta();
+    recebe_resposta(vet_resposta);
+
+    for(k=0; k<MAX_MSG; k++){      
+        if(strcmp(vet_resposta[k],"") != 0)
+            printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+        else break;
+    }
 
     return 0;
 }
