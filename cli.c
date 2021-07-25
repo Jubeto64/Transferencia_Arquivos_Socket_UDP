@@ -61,7 +61,9 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_ar
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
     if(tipo == 1){//abre o novo arquivo para escrita
-        target = fopen("texto2.txt", "w");
+        char caminho[30];
+        strcpy(caminho,".\\arquivos_recebidos_cliente\\");
+        target = fopen(strcat(caminho,nome_arquivo), "w");
         if( target == NULL ){
             printf("Erro ao ler o arquivo\n");
             exit(EXIT_FAILURE);
