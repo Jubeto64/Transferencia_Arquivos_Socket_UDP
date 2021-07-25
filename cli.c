@@ -9,56 +9,50 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
-typedef struct arquivo{
-    char nome[100];
-    char ip[16];
-}t_arquivo;
-
-void escrever_arquivo(t_arquivo arquivos[]){
-	int i;
-	int len_vet = sizeof(arquivos) - 1; // tamanho do vetor
-	FILE * arq;
-
-	// abre o arquivo para escrita no modo append (adiciona ao final)
-	arq = fopen("dados.bin", "ab");
-
-	if(arq != NULL){
-		for(i = 0; i < len_vet; i++)			
-			fwrite(&arquivos[i], sizeof(t_arquivo), 1, arq);// escreve cada elemento do vetor no arquivo
-		fclose(arq); // aborta o programa
-	}else{
-		printf("\nErro ao abrir o arquivo para leitura!\n");
-		exit(1); // aborta o programa
-	}
+int le_arquivo(char nome_arquivo[20],  char resultado[20000][50]){
+    int i = 0, j =0, k=0;
+    char ch;
+    FILE *source;
+    source = fopen(nome_arquivo, "r");
+    if( source == NULL ){
+        printf("Erro ao ler o arquivo\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    while( ( ch = fgetc(source) ) != EOF ){
+        resultado[i][j] = ch;
+        j++;
+        if(j==50){
+            i++;
+            j = 0;
+        }
+        k++;
+    }
+    fclose(source);
+    return k;
 }
 
-int ler_arquivo(t_arquivo aux_arquivos[MAX_MSG]){
-	// abre o arquivo para leitura
-	FILE * arq = fopen("dados.bin", "rb");
-
-	if(arq != NULL){
-		int indice = 0;
-		while(1){
-			t_arquivo p;
-
-			// fread le os dados e retorna a quantidade de elementos lidos com sucesso
-			size_t r = fread(&p, sizeof(t_arquivo), 1, arq);
-
-			// se retorno for menor que o count, então sai do loop
-			if(r < 1)
-				break;
-			else
-				aux_arquivos[indice++] = p;
-		}
-		fclose(arq); // fecha o arquivo
-		return indice;
-	}else{
-		printf("Erro ao abrir o arquivo para leitura!\n");
-		exit(1); // aborta o programa
-	}
+void escreve_arquivo(char novo_arquivo[20], int n,  char resultado[20000][50]){
+    int i = 0, j = 0, k=0;
+    FILE *target;
+    target = fopen(novo_arquivo, "w");
+    if( target == NULL ){
+        printf("Erro ao ler o arquivo\n");
+        exit(EXIT_FAILURE);
+    }
+    while(k < n){
+        fputc(resultado[i][j], target);
+        j++;
+        if(j==50){
+            i++;
+            j = 0;
+        }
+        k++;
+    }
+    
 }
 
-void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
+void recebe_resposta(char vet_resposta[20000][50], int tipo){
     //tipo 0 cliente recebe resposta do servidor
     //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
     //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
@@ -139,7 +133,7 @@ void envia_resposta(char mensagem[], int tipo){
     //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
     //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
     //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
-    int j, k, porta;
+    int j, k, porta, len_vet;
 
     WSADATA wsaData;
     LPHOSTENT hostEntry;
@@ -147,25 +141,10 @@ void envia_resposta(char mensagem[], int tipo){
     int socks, rc, i;
     struct sockaddr_in cliAddr, remoteServAddr;
 
-    char vet_resposta[MAX_MSG][16];
-    if(tipo == 2){
-        t_arquivo vet_arquivos[MAX_MSG];
-        
-        int len_vet = ler_arquivo(vet_arquivos);
-
-        for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-            strcpy(vet_resposta[k], "");
-
-        // inserindo no vetor de respostas os ips dos elementos do vetor vet_arquivos que possuem o arquivo com nome desejado
-        k=0;
-        for(j= 0; j < len_vet; j++){
-            if(strcmp(vet_arquivos[j].nome,mensagem) == 0){
-                fflush(stdin);
-                strcpy(vet_resposta[k], vet_arquivos[j].ip);
-                k++;
-            }
-        }
-        strcpy(vet_resposta[k], "FIM");
+    char vet_resposta[20000][50];
+    if(tipo == 2){        
+        len_vet = le_arquivo(mensagem,vet_resposta);
+        strcpy(vet_resposta[len_vet], "FIM");
     }
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
@@ -206,15 +185,13 @@ void envia_resposta(char mensagem[], int tipo){
 
     // ENVIANDO OS DADOS
     if(tipo == 2){
-        for(k=0; k<MAX_MSG; k++){
-            if(strcmp(vet_resposta[k],"") != 0){
-                rc = sendto(socks, vet_resposta[k], strlen(vet_resposta[k])+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
-                if(rc<0) {
-                    printf("Nao pode enviar dados %d \n",i-1);
-                    closesocket(socks);
-                    return;
-                }    
-            }else   break;
+        for(k=0; k<len_vet+1; k++){
+            rc = sendto(socks, vet_resposta[k], strlen(vet_resposta[k])+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
+            if(rc<0) {
+                printf("Nao pode enviar dados %d \n",i-1);
+                closesocket(socks);
+                return;
+            }
         }
     }else{ //tipo 0 e 1 enviam o mesmo tipo de mensagem
         rc = sendto(socks, mensagem, strlen(mensagem)+1, 0,
@@ -232,7 +209,7 @@ void envia_resposta(char mensagem[], int tipo){
 int main(int argc, char *argv[]) {
 	int i,k;
     char nome_arquivo[100];
-	char vet_resposta[MAX_MSG][MAX_MSG];
+	char vet_resposta[20000][50];
 
     int opcao = 1;
 
@@ -267,7 +244,7 @@ int main(int argc, char *argv[]) {
 
                 recebe_resposta(vet_resposta, 1);
 
-                for(k=0; k<MAX_MSG; k++){      
+                for(k=0; k<20000; k++){      
                     if(strcmp(vet_resposta[k],"") != 0)
                         printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
                     else break;
