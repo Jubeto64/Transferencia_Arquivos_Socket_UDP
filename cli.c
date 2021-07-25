@@ -9,7 +9,7 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
-void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_arquivo[MAX_MSG]){
     //tipo 0 cliente recebe resposta do servidor
     //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
     //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
@@ -241,7 +241,7 @@ int main(int argc, char *argv[]) {
 
                 envia_resposta(nome_arquivo,0);
 
-                recebe_resposta(vet_resposta, 0);
+                recebe_resposta(vet_resposta, 0,"");
 
                 for(k=0; k<MAX_MSG; k++){      
                     if(strcmp(vet_resposta[k],"") != 0)
@@ -254,7 +254,7 @@ int main(int argc, char *argv[]) {
                 for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
                     strcpy(vet_resposta[k], "");
 
-                recebe_resposta(vet_resposta, 1);
+                recebe_resposta(vet_resposta, 1,nome_arquivo);
 
                 for(k=0; k<20000; k++){      
                     if(strcmp(vet_resposta[k],"") != 0)
@@ -269,7 +269,7 @@ int main(int argc, char *argv[]) {
                 for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
                     strcpy(vet_resposta[k], "");
 
-                recebe_resposta(vet_resposta, 2);
+                recebe_resposta(vet_resposta, 2,"");
 
                 k=0;
                 while(k<MAX_MSG){
