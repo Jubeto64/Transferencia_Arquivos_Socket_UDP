@@ -9,54 +9,15 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
-int le_arquivo(char nome_arquivo[20],  char resultado[20000][50]){
-    int i = 0, j =0, k=0;
-    char ch;
-    FILE *source;
-    source = fopen(nome_arquivo, "r");
-    if( source == NULL ){
-        printf("Erro ao ler o arquivo\n");
-        exit(EXIT_FAILURE);
-    }
-    
-    while( ( ch = fgetc(source) ) != EOF ){
-        resultado[i][j] = ch;
-        j++;
-        if(j==50){
-            i++;
-            j = 0;
-        }
-        k++;
-    }
-    fclose(source);
-    return k;
-}
-
-void escreve_arquivo(char novo_arquivo[20], int n,  char resultado[20000][50]){
-    int i = 0, j = 0, k=0;
-    FILE *target;
-    target = fopen(novo_arquivo, "w");
-    if( target == NULL ){
-        printf("Erro ao ler o arquivo\n");
-        exit(EXIT_FAILURE);
-    }
-    while(k < n){
-        fputc(resultado[i][j], target);
-        j++;
-        if(j==50){
-            i++;
-            j = 0;
-        }
-        k++;
-    }
-    
-}
-
-void recebe_resposta(char vet_resposta[20000][50], int tipo){
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
     //tipo 0 cliente recebe resposta do servidor
     //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
     //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
     WSADATA wsaData;
+
+    int i, j;
+    FILE *target;
+    char resultado[50];
 
     int socks, rc, n, cliLen, k, porta;
     struct sockaddr_in cliAddr, servAddr;
@@ -99,6 +60,13 @@ void recebe_resposta(char vet_resposta[20000][50], int tipo){
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
+    if(tipo == 1){
+        target = fopen("sommm.wav", "w");
+        if( target == NULL ){
+            printf("Erro ao ler o arquivo\n");
+            exit(EXIT_FAILURE);
+        }
+    }
     while(1) {
 
         // INICIANDO BUFFER
@@ -119,12 +87,24 @@ void recebe_resposta(char vet_resposta[20000][50], int tipo){
         }
         if(strcmp(msg,"") != 0){
             fflush(stdin);
-            strcpy(vet_resposta[k], msg);
-            k++;
+            
+            if(tipo == 1){
+                //printf("\nPacote de 50 caracters recebido: %s\n", msg);
+                for(i=0; i<50; i++){
+                    fputc(msg[i], target);
+                }
+                strcpy(vet_resposta[k], "Arquivo Recebido");
+            }else{
+                strcpy(vet_resposta[k], msg);
+                k++;
+            }
+            
         }
 
     } // FIM DO LOOP DO SERVIDOR
-
+    if(tipo == 1){
+        fclose(target);
+    }
     closesocket(socks);
     WSACleanup();
 }
@@ -133,19 +113,16 @@ void envia_resposta(char mensagem[], int tipo){
     //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
     //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
     //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
-    int j, k, porta, len_vet;
+    int i, j, k, porta, len_vet;
+    char ch, resultado[50];
+    strcpy(resultado, "");
+    FILE *source;
 
     WSADATA wsaData;
     LPHOSTENT hostEntry;
 
-    int socks, rc, i;
+    int socks, rc;
     struct sockaddr_in cliAddr, remoteServAddr;
-
-    char vet_resposta[20000][50];
-    if(tipo == 2){        
-        len_vet = le_arquivo(mensagem,vet_resposta);
-        strcpy(vet_resposta[len_vet], "FIM");
-    }
 
     // INICIALIZA A DLL DE SOCKETS PARA O WINDOWS
     WSAStartup(MAKEWORD(2,1),&wsaData);
@@ -184,15 +161,33 @@ void envia_resposta(char mensagem[], int tipo){
     }
 
     // ENVIANDO OS DADOS
-    if(tipo == 2){
-        for(k=0; k<len_vet+1; k++){
-            rc = sendto(socks, vet_resposta[k], strlen(vet_resposta[k])+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
-            if(rc<0) {
-                printf("Nao pode enviar dados %d \n",i-1);
-                closesocket(socks);
-                return;
+    if(tipo == 2){//quebra o arquivo em pacotes de 50 caracteres e envia via socket
+        i = 0, j =0, k=0;
+        source = fopen(mensagem, "r");
+        if( source == NULL ){
+            printf("Erro ao ler o arquivo\n");
+            exit(EXIT_FAILURE);
+        }
+        
+        while((ch = fgetc(source)) != EOF ){
+            resultado[i] = ch;
+            i++;
+            if(i==50){
+                rc = sendto(socks, resultado, strlen(resultado)+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
+                if(rc<0) {
+                    printf("Nao pode enviar dados %d \n",i-1);
+                    closesocket(socks);
+                    fclose(source);
+                    return;
+                }
+                strcpy(resultado, "");
+                i = 0;
             }
         }
+        fclose(source);
+        rc = sendto(socks, "FIM", 4, 0,
+            (LPSOCKADDR) &remoteServAddr,
+            sizeof(struct sockaddr));
     }else{ //tipo 0 e 1 enviam o mesmo tipo de mensagem
         rc = sendto(socks, mensagem, strlen(mensagem)+1, 0,
             (LPSOCKADDR) &remoteServAddr,
@@ -209,7 +204,7 @@ void envia_resposta(char mensagem[], int tipo){
 int main(int argc, char *argv[]) {
 	int i,k;
     char nome_arquivo[100];
-	char vet_resposta[20000][50];
+	char vet_resposta[MAX_MSG][MAX_MSG];
 
     int opcao = 1;
 

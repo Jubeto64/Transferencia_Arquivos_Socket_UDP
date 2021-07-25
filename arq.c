@@ -41,7 +41,7 @@ void escreve_arquivo(char novo_arquivo[20], int n,  char resultado[20000][50]){
         }
         k++;
     }
-    
+    fclose(target);
 }
 
 
