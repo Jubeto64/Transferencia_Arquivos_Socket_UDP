@@ -60,8 +60,8 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
 
     // LACO INFINITO DE ESPERA DO SERVIDOR
     k=0;
-    if(tipo == 1){
-        target = fopen("sommm.wav", "w");
+    if(tipo == 1){//abre o novo arquivo para escrita
+        target = fopen("texto2.txt", "w");
         if( target == NULL ){
             printf("Erro ao ler o arquivo\n");
             exit(EXIT_FAILURE);
@@ -71,6 +71,9 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
 
         // INICIANDO BUFFER
         memset(msg,0x0,MAX_MSG);
+
+        //LIMPANDO A STRING MSG
+        strcpy(msg,"");
 
         // RECEBENDO UMA MENSGAEM
         cliLen = sizeof(cliAddr);
@@ -88,7 +91,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
         if(strcmp(msg,"") != 0){
             fflush(stdin);
             
-            if(tipo == 1){
+            if(tipo == 1){//Recebe o arquivo em pacotes de 50 caracteres e escreve no novo arquivo
                 //printf("\nPacote de 50 caracters recebido: %s\n", msg);
                 for(i=0; i<50; i++){
                     fputc(msg[i], target);
@@ -102,7 +105,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo){
         }
 
     } // FIM DO LOOP DO SERVIDOR
-    if(tipo == 1){
+    if(tipo == 1){//fecha o novo arquivo
         fclose(target);
     }
     closesocket(socks);
@@ -172,7 +175,7 @@ void envia_resposta(char mensagem[], int tipo){
         while((ch = fgetc(source)) != EOF ){
             resultado[i] = ch;
             i++;
-            if(i==50){
+            if(i==50){//envia cada vez que chegar no caracter 50
                 rc = sendto(socks, resultado, strlen(resultado)+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
                 if(rc<0) {
                     printf("Nao pode enviar dados %d \n",i-1);
@@ -183,7 +186,21 @@ void envia_resposta(char mensagem[], int tipo){
                 strcpy(resultado, "");
                 i = 0;
             }
+            j++;
         }
+        //enviando ultimo pacote que pode ser menor que 50
+        char ultimo_pacote[i+1];
+        for(k=0; k<i; k++){
+            ultimo_pacote[k] = resultado[k];
+        }
+        rc = sendto(socks, ultimo_pacote, strlen(ultimo_pacote)+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
+        if(rc<0) {
+            printf("Nao pode enviar dados %d \n",i-1);
+            closesocket(socks);
+            fclose(source);
+            return;
+        }
+
         fclose(source);
         rc = sendto(socks, "FIM", 4, 0,
             (LPSOCKADDR) &remoteServAddr,

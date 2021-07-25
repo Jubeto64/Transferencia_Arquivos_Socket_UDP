@@ -60,7 +60,7 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX]){
 int main(int argc, char *argv[])
 {
 	// vetor que será escrito no arquivo
-	t_arquivo arquivos[] = {{"som.wav", "127.0.0.1"}, {"som.wav", "127.0.0.2"}};
+	t_arquivo arquivos[] = {{"som.wav", "127.0.0.1"},{"som.wav", "127.0.0.2"},{"texto.txt", "127.0.0.3"},{"texto.txt", "127.0.0.4"}};
 
 	// vetor para onde serão carregados os dados
 	// esse vetor foi criado para demonstrar que realmente funciona,

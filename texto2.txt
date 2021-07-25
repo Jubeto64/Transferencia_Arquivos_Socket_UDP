@@ -1,0 +1,285 @@
+Lorem ipsum
+Origem: Wikipédia, a enciclopédia livre.
+
+Lorem ipsum utilizado para demonstrar o layout gráfico de uma página web
+A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações (jornais, revistas, e sites) para testar e ajustar aspectos visuais (layout, tipografia, formatação, etc.) antes de utilizar conteúdo real. Também é utilizado em catálogos tipográficos, para demonstrar textos e títulos escritos com as fontes.[1]
+
+
+Índice
+1	Composição
+1.1	Tradução
+2	História
+3	Onde encontrar e uso
+4	Ver também
+5	Referências
+6	Ligações externas
+Composição
+Em sua forma mais comum, o texto é como se segue:
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing."
+Nos países de língua inglesa o texto apresenta-se em forma um pouco diferente, apresentada a seguir:
+
+"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+Tradução
+Sua tradução para o português seria:
+
+"Aquele que ama ou exerce ou deseja a dor, pode ocasionalmente adquirir algum prazer na labuta. Para dar um exemplo trivial, qual de nós se submete a laborioso exercício físico, exceto para obter alguma vantagem com isso. Desmoralizado pelos encantos do prazer, percebe que a dor não resulta em prazer algum. Está tão cego pelo desejo que não pode prever quem não cumprirá seu dever por fraqueza de vontade."
+História
+A expressão Lorem ipsum não é um texto qualquer. Richard McClintock, professor de latim na Hampden-Sydney College, na Virgínia, pesquisou uma das palavras da passagem do texto lorem ipsum na literatura clássica, "consectetur", descobriu que o trecho vem das seções 1.10.32 e 1.10.33 do "De Finibus Bonorum et Malorum" (Os extremos do bem e do mal) escrito por Cícero em 45 a.C. Esse livro versa sobre a teoria da ética, tendo sido muito consultado durante o período da Renascença. A primeira linha, "Lorem ipsum dolor sit amet...", encontra-se na seção 1.10.32.[1]
+
+Onde encontrar e uso
+Em documentos utilizados para testes, este tipo de texto é utilizado para evitar que as pessoas foquem a atenção no texto e se concentrem nos aspectos visuais. O lorem ipsum simula com razoável fidelidade um texto real, por possuir palavras de diversos tamanhos e sinais de pontuação, permitindo testar também a forma como o texto flui nas caixas e campos de formatação.[1]
+
+Você pode encontrá-lo em editores de texto, tais como o HQ Sublime; basta digitar <Lorem e pressione TAB e. no Microsoft Word, basta digitar "=Lorem(x,y)" onde x é o número de parágrafos desejado e y é o número de frases para cada parágrafo.
+
+What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+
+Where does it come from?
+Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+
+Where can I get some?
+There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+
+5
+	paragraphs
+	words
+	bytes
+	lists
+	Start with 'Lorem
+ipsum dolor sit amet...'
+
+Translations: Can you help translate this site into a foreign language ? Please email us with details if you can help.
+There are now a set of mock banners available here in three colours and in a range of standard banner sizes:
+BannersBannersBanners
+Donate: If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. There is no minimum donation, any sum is appreciated - click here to donate using PayPal. Thank you for your support.
+Donate Bitcoin: 16UQLq1HZ3CNwhvgrarV6pMoA2CDjb4tyF
+NodeJS Python Interface GTK Lipsum Rails .NET Groovy
+
+The standard Lorem Ipsum passage, used since the 1500s
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+
+1914 translation by H. Rackham
+"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+
+Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
+
+1914 translation by H. Rackham
+"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
+
+help@lipsum.com
+Privacy Policy
+
+Geradores de Lorem Ipsum para todos os gostos
+Fabricio Teixeira
+Fabricio Teixeira
+
+Feb 24, 2013·10 min read
+
+
+Para quem não conhece, “Lorem Ipsum” ou “dummy text” é um texto utilizado para preencher o espaço de texto em publicações (jornais, revistas, e websites), com a finalidade de verificar o layout, tipografia e formatação antes de utilizar conteúdo real.
+No nosso caso, é muito usado em wireframes e sketches para preencher algum bloco de texto em que o conteúdo final não tenha muita importância para aquilo que queremos demonstrar. O lorem ipsum simula com razoável fidelidade um texto real, por possuir palavras de diversos tamanhos e sinais de pontuação, permitindo testar também a forma como o texto flui nas caixas e campos de formatação.
+Com o passar do tempo foram surgindo várias ferramentas online que geram esses blocos de textos automaticamente. Isso facilita bastante a vida dos Designers, que só precisam copiar e colar esse texto no wireframe/layout que está sendo criado.
+Como não podia deixar de ser, também apareceram várias versões bem humoradas desses geradores de lorem ipsum, como você vê na lista abaixo.
+Uma boa dica para deixar seus wireframes um pouco mais divertidos.
+Lipsum
+lipsum
+O que é?
+O mais clássico e conhecido dos geradores de Lorem Ipsum.
+Exemplo:
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at risus neque. Cras sit amet ligula ut justo commodo porta id ut enim. Nulla est lectus, mollis sit amet vehicula id, volutpat eget mauris.
+Link: Lipsum >
+Cinquenta tons de Lorem Ipsum
+fifty_shades
+O que é?
+Um gerador de lorem ipsum que utiliza trechos da literatura erótica contemporânea.
+Exemplo:
+Inserting a lightbulb into my vaginal bacon buffet got me flowing sex wee faster than snot off a whip. He munched on my piss flaps, even though I’d been riding the cotton pony for the best part of a week.
+Link: Fifty Shades Generator >
+Trollem Ipsum
+trollem_ipsum
+O que é?
+Gerador de trollagens contra fanboys da Apple, geeks e usuários de BlackBerry, entre outros.
+Exemplo:
+Battery drain, then Apple will only get better especially so-called “iPad killer” due to pleasure to use, nevertheless delay in getting Ice Cream Sandwich, to whom Jony Ive’s incredible design why best design in contrast profit.
+Link: Trollem Ipsum >
+Gag Ipsum
+gag_ipsum
+O que é?
+Um gerador de dummy text com trechos de memes famosos da interwebs.
+Exemplo:
+Crying you don’t say? Grin aww yeah derp top le girlfriend that not okay weekend no. I Know That Feel jackie chan games woman in the kitchen nerd humor challenge accepted final week hac. T-rex all the things really?
+Link: Gag Ipsum >
+Fillerama
+fillerama
+O que é?
+Gerador de textos de séries famosas da TV americana, como Futurama, Dexter, The Simpsons, entre outras.
+Exemplo:
+I’m partial to air conditioning. I’m thinking two circus clowns dancing. You? This man is a knight in shining armor. I’m really more an apartment person.
+Link: Fillerama >
+Zombie Ipsum
+zombie_ipsum
+O que é?
+Uma variação do lorem ipsum com uma temática de zumbis assassinos.
+Exemplo:
+Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris.
+Link: Zombie Ipsum >
+Bacon Ipsum
+bacon_ipsum
+O que é?
+Um gerador de dummy text para designers apaixonados por bacon.
+Exemplo:
+Bacon ipsum dolor sit amet jerky tongue kielbasa, doner ham hock ribeye swine leberkas sirloin filet mignon tail meatball hamburger. Bresaola ground round kielbasa, beef ribs beef brisket pancetta pork chop jowl ball tip corned beef.
+Link: Bacon Ipsum >
+Veggie Ipsum
+veggie_ipsum
+O que é?
+Se você achou o Bacon Ipsum muito pesado, pode usar essa versão mais light do gerador de textos.
+Exemplo:
+Veggies sunt bona vobis, proinde vos postulo esse magis green bean fava bean spinach avocado caulie welsh onion artichoke turnip chicory soybean.
+Link: Veggie Ipsum >
+Vegan Ipsum
+vegan_ipsum
+O que é?
+Uma versão ainda mais extrema do Veggie Ipsum, dessa vez sem nenhum derivado de animais.
+Exemplo:
+Pignut hamburg parsley tigernut. Carrot burdock scorzonera chaya samphire corn salad prussian asparagus, lettuce, bitterleaf. Indian pea orache ginger potato brussels sprout paracress tinda — potato collard greens; urad bean.
+Link: Vegan Ipsum >
+Cupcake Ipsum
+cupcake_ipsum
+O que é?
+Para UX Designers que querem sair da dieta, palavras relacionadas a cupcake e outras obras-de-arte gastronômicas.
+Exemplo:
+Jujubes tart wafer cheesecake chocolate chocolate candy canes cotton candy. Cotton candy toffee dessert chocolate. Cookie jelly toffee gummi bears halvah croissant apple pie cupcake. Powder sugar plum cotton candy muffin.
+Link: Cupcake Ipsum >
+Liquor Ipsum
+liquor_ipsum
+O que é?
+Um gerador de lorem ipsum para maiores de 18 anos.
+Exemplo:
+Prince shnell hi-fi harper’s chupacabra; charro negro; tequila sunrise vodka mcgovern, glenlossie seven and seven gibbon matador singapore sling imperial. Quentão jagertee, port charlotte southern comfort pisco sour anisette glenlivet churchill sake bomb glenallachie brandy daisy?
+Link: Liquor Ipsum >
+Hipster Ipsum
+hipster_ipsum
+O que é?
+Um gerador de dummy text com óculos de armação grossa, camisa xadrez e filtro do instagram.
+Exemplo:
+Qui butcher farm-to-table locavore sunt quinoa. Bicycle rights pariatur marfa etsy, four loko lomo veniam fashion axe aesthetic. Actually irony quis selfies readymade narwhal. Nesciunt pinterest cillum, wolf swag american apparel carles ex butcher non veniam.
+Link: Hipster Ipsum >
+Samuel L. Ipsum
+samuel_l_ipsum
+O que é?
+Um gerador de lorem ipsum inspirado nos personagens de Samuel L. Jackson.
+Exemplo:
+My money’s in that office, right? If she start giving me some bullshit about it ain’t there, and we got to go someplace else and get it, I’m gonna shoot you in the head then and there.
+Link: Samuel L Ipsum >
+TV Ipsum
+tv_ipsum
+O que é?
+Utiliza trechos randômicos de programas de TV americanos dos anos 70 e 80 para compor o texto.
+Exemplo:
+So join us here each week my friends you’re sure to get a smile from seven stranded castaways here on Gilligans Isle. Boy the way Glen Miller played. Songs that made the hit parade.
+Link: TV Ipsum >
+Vatican Assassin
+vatican_assassin
+O que é?
+Um gerador que mistura o linguajar do Charles Sheen com a estética do inglês bíblico (oi?).
+Exemplo:
+And we are and, I don’t know, winning?… Anyone? …. (long silence) …. Rhymes with winning? …. Anyone? …. Yeah, that would be us.
+Link: Vatican Assassin >
+Swearen Ipsum
+swearen_ipsum
+O que é?
+Gerador de juras em latim.
+Exemplo:
+Swearem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam scelerisque accumsan nisl, a mattis eros vestibulum et. Vestibulum placerat purus ut nibh aliquam fringilla. Aenean et tortor diam, shit tempor minge.
+Link: Swearen Ipsum >
+Ladle Rat Rotten Hut
+rotten_hut
+O que é?
+Um gerador de texto baseado em uma releitura de Chapeuzinho Vermelho escrita por H.L.Chace.
+Exemplo:
+Wants pawn term, dare worsted ladle gull hoe lift wetter murder inner ladle cordage, honor itch offer lodge dock florist. Disk ladle gull orphan worry ladle cluck wetter putty ladle rat hut, an fur disk raisin pimple colder Ladle Rat Rotten Hut.
+Link: Ladle Rat Rotten Hut >
+Blind Text Generator
+blind_text_generator
+O que é?
+Um gerador de lorem ipsum que permite gerar trechos de outras obras e autores — entre eles, Kafka.
+Exemplo:
+One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.
+Link: Blind Text Generator >
+Random Text Generator
+random_text_generator
+O que é?
+Um gerador de textos em inglês, randômicos, vasculhados e remixados da própria interwebs.
+Exemplo:
+He my polite be object oh change. Consider no mr am overcame yourself throwing sociable children. Hastily her totally conduct may. My solid by stuff first smile fanny. Humoured how advanced mrs elegance sir who.
+Link: Random Text Generator >
+Fillerati
+fillerati
+O que é?
+Gerador de dummy text puxado de várias obras clássicas da literatura — no exemplo abaixo, Moby Dick.
+Exemplo:
+But here is an artist. He desires to paint you the dreamiest, shadiest, quietest, most enchanting bit of romantic landscape in all the valley of the Saco. What is the chief element he employs?
+Link: Fillerati >
+Gangsta Lorem Ipsum
+gangsta_lorem_ipsum
+O que é?
+Um gerador de texto na linguagem dos gângsters, em inglês.
+Exemplo:
+Lorizzle ipsum dolizzle doggy amizzle, adipiscing dawg. Dope sapizzle velizzle, sure volutpat, suscipizzle quis, vizzle, yo mamma. Pellentesque eget tortor. Sizzle erizzle.
+Link: Gangsta Lorem Ipsum >
+Twipsum
+twipsum
+O que é?
+Você digita um termo, ele busca tweets relacionados e cria um dummy text com aquelas palavras.
+Exemplo (buscando por “usabilidade”):
+Quais são bons aparelhos Android/WP com preços razoáveis. Intenção: testes de usabilidade e app?. Para que o usuário cometa menos erros ao acessar uma interface e tenha mais produtividade o projeto deve passar por conceitos de usabilidade.
+Link: Twipsum >
+Skate Ipsum
+skate_ipsum
+O que é?
+Um gerador de lorem ipsum com manobras de skate, nomes de skatistas famosos e outros termos relacionados.
+Exemplo:
+Skate ipsum dolor sit amet, air ollie wax rock and roll manual crail slide. Face plant 360 heel flip pump quarter pipe JFA airwalk. Tailslide drop in shoveit face plant steps invert Ron Allen.
+Link: Skate Ipsum >
+Tuna Ipsum
+tuna_ipsum
+O que é?
+Um gerador de dummy text para quem, por algum motivo, adora atum e outros peixes.
+Exemplo:
+Gunnel loach minnow yellowhead jawfish goldfish, koi river shark; candiru bristlenose catfish halosaur brown trout lighthousefish bobtail snipe eel crevice kelpfish. Rudd spadefish bluegill milkfish Japanese eel sand dab river shark cutthroat trout.
+Link: Tuna Ipsum >
+Beer Ipsum
+beer_ipsum
+O que é?
+Para os amantes de uma boa cerveja.
+Exemplo:
+Pitch black malt barleywine specific gravity wort chiller balthazar pitch. mash hops pub goblet adjunct adjunct attenuation units of bitterness. original gravity lauter mash barrel infusion, bock brewing wort.
+Link: Beer Ipsum >
+Bluth Ipsum
+bluth_ipsum
+O que é?
+Gerador de lorem ipsum com trechos da série americana Arrested Development.
+Exemplo:
+It was for me. I was going to smoke the marijuana like a cigarette. I don’t want no part of yo’ tight-ass country club, ya freak bitch! Wow, this is the best free scrapbooking class I’ve ever taken!
+Link: Bluth Ipsum >
+Lebowski Ipsum
+lebowski
+O que é?
+Trechos do filme The Big Lebowski para você colocar no seu wireframe.
+Exemplo:
+Dolor sit amet, consectetur adipiscing elit. Since you have failed to achieve, even in the modest task that was your charge, since you have stolen my money, and since you have unrepentantly betrayed my trust.
+Link: Lebowski Ipsum >
+Not Lorem Ipsum
+                           
