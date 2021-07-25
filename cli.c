@@ -253,6 +253,7 @@ int main(int argc, char *argv[]) {
                         recebe_resposta(vet_resposta_cli, 1,nome_arquivo);//recebendo resposta do cliente com o arquivo
                         printf("Resposta Recebida do outro clinte: %s\n", vet_resposta_cli[0]);
                         if(strcmp(vet_resposta_cli[0],"Arquivo Recebido") == 0){
+                            envia_resposta(nome_arquivo,0);
                             break;
                         }
                     }                        

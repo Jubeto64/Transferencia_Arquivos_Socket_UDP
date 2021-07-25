@@ -213,18 +213,31 @@ int main(int argc, char *argv[]) {
     for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
         strcpy(vet_resposta[k], "");
 
-    recebe_resposta(vet_resposta);
+    recebe_resposta(vet_resposta);//recebendo o nome do arquivo solicitado pelo cliente
 
     k=0;
     while(k<MAX_MSG){
         if(strcmp(vet_resposta[k],"") != 0)
-            printf("Solicitacao Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+            printf("Solicitacao Recebida: %s\n", vet_resposta[k]);
         else break;
         k++;
     }
 
     if(k > 0){
-        envia_resposta(vet_resposta[0]);
+        envia_resposta(vet_resposta[0]);//Procurando e enviando IPs
+    }
+
+    for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+        strcpy(vet_resposta[k], "");
+
+    recebe_resposta(vet_resposta);//recebendo o nome do arquivo que o  cliente baixou com sucesso
+
+    k=0;
+    while(k<MAX_MSG){
+        if(strcmp(vet_resposta[k],"") != 0)
+            printf("Arquivo baixado pelo cliente: %s\n", vet_resposta[k]);
+        else break;
+        k++;
     }
 
     return 0;
