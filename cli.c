@@ -2,6 +2,7 @@
 #include <winsock.h>
 #include <stdio.h>
 #include <string.h>
+#include <locale.h>
 
 #define LOCAL_CLIENT_PORT 1503
 #define REMOTE_CLIENT_PORT 1502
@@ -87,14 +88,10 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_ar
 
         // IMPRIMIR MENSAGEM RECEBIDA
         if(strcmp(msg,"FIM") == 0){
-            fflush(stdin);
             break;
         }
-        if(strcmp(msg,"") != 0){
-            fflush(stdin);
-            
+        if(strcmp(msg,"") != 0){            
             if(tipo == 1){//Recebe o arquivo em pacotes de 50 caracteres e escreve no novo arquivo
-                //printf("\nPacote de 50 caracters recebido: %s\n", msg);
                 for(i=0; i<50; i++){
                     fputc(msg[i], target);
                 }
@@ -174,8 +171,7 @@ void envia_resposta(char mensagem[], int tipo){
             exit(EXIT_FAILURE);
         }
         
-        while((ch = fgetc(source)) != EOF ){
-            resultado[i] = ch;
+        while((resultado[i]  = fgetc(source)) != EOF ){
             i++;
             if(i==50){//envia cada vez que chegar no caracter 50
                 rc = sendto(socks, resultado, strlen(resultado)+1, 0,(LPSOCKADDR) &remoteServAddr, sizeof(struct sockaddr));
@@ -188,7 +184,6 @@ void envia_resposta(char mensagem[], int tipo){
                 strcpy(resultado, "");
                 i = 0;
             }
-            j++;
         }
         //enviando ultimo pacote que pode ser menor que 50
         char ultimo_pacote[i+1];
@@ -221,6 +216,7 @@ void envia_resposta(char mensagem[], int tipo){
 }
 
 int main(int argc, char *argv[]) {
+    setlocale(LC_ALL, "Portuguese");
 	int i,k;
     char nome_arquivo[100];
 	char vet_resposta[MAX_MSG][MAX_MSG];
