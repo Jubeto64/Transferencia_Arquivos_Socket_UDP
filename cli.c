@@ -219,7 +219,7 @@ int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "Portuguese");
 	int i,k;
     char nome_arquivo[100];
-	char vet_resposta[MAX_MSG][MAX_MSG];
+	char vet_resposta[MAX_MSG][MAX_MSG], vet_resposta_cli[MAX_MSG][MAX_MSG];
 
     int opcao = 1;
 
@@ -242,25 +242,22 @@ int main(int argc, char *argv[]) {
                 recebe_resposta(vet_resposta, 0,"");
 
                 for(k=0; k<MAX_MSG; k++){      
-                    if(strcmp(vet_resposta[k],"") != 0)
-                        printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+                    if(strcmp(vet_resposta[k],"") != 0){
+                        printf("Resposta Recebida pelo Servidor: %s\n", vet_resposta[k]);
+
+                        envia_resposta(nome_arquivo, 1);//enviando solicitacao para o cliente com o arquivo
+
+                        for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+                            strcpy(vet_resposta_cli[k], "");
+                        
+                        recebe_resposta(vet_resposta_cli, 1,nome_arquivo);//recebendo resposta do cliente com o arquivo
+                        printf("Resposta Recebida do outro clinte: %s\n", vet_resposta_cli[0]);
+                        if(strcmp(vet_resposta_cli[0],"Arquivo Recebido") == 0){
+                            break;
+                        }
+                    }                        
                     else break;
                 }
-
-                envia_resposta(nome_arquivo, 1);
-
-                for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-                    strcpy(vet_resposta[k], "");
-
-                recebe_resposta(vet_resposta, 1,nome_arquivo);
-
-                for(k=0; k<20000; k++){      
-                    if(strcmp(vet_resposta[k],"") != 0)
-                        printf("Resposta Recebida: %s Posicao: %d\n", vet_resposta[k], k);
-                    else break;
-                }
-                
-
             break;
 
             case 2:
@@ -272,7 +269,7 @@ int main(int argc, char *argv[]) {
                 k=0;
                 while(k<MAX_MSG){
                     if(strcmp(vet_resposta[k],"") != 0)
-                        printf("Solicitacao Recebida: %s Posicao: %d\n", vet_resposta[k], k);
+                        printf("Solicitacao Recebida: %s\n", vet_resposta[k]);
                     else break;
                     k++;
                 }
