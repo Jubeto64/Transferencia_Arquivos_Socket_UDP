@@ -12,17 +12,15 @@ typedef struct arquivo{
     char ip[16];
 }t_arquivo;
 
-void escrever_arquivo(t_arquivo arquivos[]){
+void escrever_arquivo(t_arquivo arquivos){
 	int i;
-	int len_vet = sizeof(arquivos) - 1; // tamanho do vetor
 	FILE * arq;
 
 	// abre o arquivo para escrita no modo append (adiciona ao final)
 	arq = fopen("dados.bin", "ab");
 
 	if(arq != NULL){
-		for(i = 0; i < len_vet; i++)			
-			fwrite(&arquivos[i], sizeof(t_arquivo), 1, arq);// escreve cada elemento do vetor no arquivo
+		fwrite(&arquivos, sizeof(t_arquivo), 1, arq);// escreve cada elemento do vetor no arquivo
 		fclose(arq); // aborta o programa
 	}else{
 		printf("\nErro ao abrir o arquivo para leitura!\n");
@@ -209,6 +207,7 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in cliAddr, remoteServAddr;
     char nome_arquivo[100];
 	char vet_resposta[MAX_MSG][MAX_MSG];
+    t_arquivo novo_arquivo;
 
     for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
         strcpy(vet_resposta[k], "");
@@ -234,9 +233,18 @@ int main(int argc, char *argv[]) {
 
     k=0;
     while(k<MAX_MSG){
-        if(strcmp(vet_resposta[k],"") != 0)
-            printf("Arquivo baixado pelo cliente: %s\n", vet_resposta[k]);
-        else break;
+        if(strcmp(vet_resposta[k],"") != 0){
+            if(k == 0){
+                printf("Arquivo baixado pelo cliente: %s\n", vet_resposta[k]);
+                strcpy(novo_arquivo.nome, vet_resposta[k]);
+                k++;//temporario enquanto nao recebo o IP
+            }
+            if(k == 1){
+                strcpy(novo_arquivo.ip, "127.0.0.4");
+                escrever_arquivo(novo_arquivo);
+                break;//Talvez eu substitua esse break pela parte que recebe o IP do Cliente
+            }
+        }else break;
         k++;
     }
 
