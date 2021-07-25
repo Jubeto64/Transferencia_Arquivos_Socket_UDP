@@ -111,7 +111,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_ar
     WSACleanup();
 }
 
-void envia_resposta(char mensagem[], int tipo){
+void envia_resposta(char mensagem[MAX_MSG][MAX_MSG], int tipo){
     //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
     //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
     //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
@@ -165,7 +165,7 @@ void envia_resposta(char mensagem[], int tipo){
     // ENVIANDO OS DADOS
     if(tipo == 2){//quebra o arquivo em pacotes de 50 caracteres e envia via socket
         i = 0, j =0, k=0;
-        source = fopen(mensagem, "r");
+        source = fopen(mensagem[0], "r");
         if( source == NULL ){
             printf("Erro ao ler o arquivo\n");
             exit(EXIT_FAILURE);
@@ -203,12 +203,14 @@ void envia_resposta(char mensagem[], int tipo){
             (LPSOCKADDR) &remoteServAddr,
             sizeof(struct sockaddr));
     }else{ //tipo 0 e 1 enviam o mesmo tipo de mensagem
-        rc = sendto(socks, mensagem, strlen(mensagem)+1, 0,
-            (LPSOCKADDR) &remoteServAddr,
-            sizeof(struct sockaddr));
+        for(i = 0; i<2; i++){
+            rc = sendto(socks, mensagem[i], strlen(mensagem[i])+1, 0,
+                (LPSOCKADDR) &remoteServAddr,
+                sizeof(struct sockaddr));           
+        }
         rc = sendto(socks, "FIM", 4, 0,
             (LPSOCKADDR) &remoteServAddr,
-            sizeof(struct sockaddr));
+            sizeof(struct sockaddr));       
     }
 
     closesocket(socks);
@@ -218,8 +220,11 @@ void envia_resposta(char mensagem[], int tipo){
 int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "Portuguese");
 	int i,k;
-    char nome_arquivo[100];
+    char nome_arquivo[MAX_MSG], mensagem[2][MAX_MSG];
 	char vet_resposta[MAX_MSG][MAX_MSG], vet_resposta_cli[MAX_MSG][MAX_MSG];
+
+    for(k = 0; k<2; k++)//inicializando o vetor de mensagens com strings vazias
+        strcpy(mensagem[k], "");
 
     int opcao = 1;
 
@@ -236,8 +241,9 @@ int main(int argc, char *argv[]) {
                 
                 printf("Digite o nome do arquivo: ");
                 scanf("%s", &nome_arquivo);
+                strcpy(mensagem[0], nome_arquivo);
 
-                envia_resposta(nome_arquivo,0);
+                envia_resposta(mensagem,0);
 
                 recebe_resposta(vet_resposta, 0,"");
 
@@ -245,7 +251,7 @@ int main(int argc, char *argv[]) {
                     if(strcmp(vet_resposta[k],"") != 0){
                         printf("Resposta Recebida pelo Servidor: %s\n", vet_resposta[k]);
 
-                        envia_resposta(nome_arquivo, 1);//enviando solicitacao para o cliente com o arquivo
+                        envia_resposta(mensagem, 1);//enviando solicitacao para o cliente com o arquivo
 
                         for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
                             strcpy(vet_resposta_cli[k], "");
@@ -253,7 +259,8 @@ int main(int argc, char *argv[]) {
                         recebe_resposta(vet_resposta_cli, 1,nome_arquivo);//recebendo resposta do cliente com o arquivo
                         printf("Resposta Recebida do outro clinte: %s\n", vet_resposta_cli[0]);
                         if(strcmp(vet_resposta_cli[0],"Arquivo Recebido") == 0){
-                            envia_resposta(nome_arquivo,0);
+                            strcpy(mensagem[1], "127.0.0.5");
+                            envia_resposta(mensagem,0);
                             break;
                         }
                     }                        
@@ -276,7 +283,7 @@ int main(int argc, char *argv[]) {
                 }
 
                 if(k > 0){
-                    envia_resposta(vet_resposta[0], 2);
+                    envia_resposta(vet_resposta, 2);
                 }
             break;
 

@@ -237,12 +237,12 @@ int main(int argc, char *argv[]) {
             if(k == 0){
                 printf("Arquivo baixado pelo cliente: %s\n", vet_resposta[k]);
                 strcpy(novo_arquivo.nome, vet_resposta[k]);
-                k++;//temporario enquanto nao recebo o IP
             }
             if(k == 1){
-                strcpy(novo_arquivo.ip, "127.0.0.4");
+                printf("IP do cliente: %s\n", vet_resposta[k]);
+                strcpy(novo_arquivo.ip,  vet_resposta[k]);
                 escrever_arquivo(novo_arquivo);
-                break;//Talvez eu substitua esse break pela parte que recebe o IP do Cliente
+                break;
             }
         }else break;
         k++;
