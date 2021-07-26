@@ -18,7 +18,9 @@ Como executar:
 -Na lista de arquivos/Ips atual estão disponíveis os arquivos texto.txt e som.wav
 
 É importante que a pasta arquivos_recebidos_cliente  esteja com o mesmo nome(não renomear) e no mesmo diretório que os programas 
-além do arquivo binário dados.bin, que possui a lista de arquivos/Ips.
+além do arquivo binário dados.bin, que possui a lista de arquivos/IPs.
+
+O programa le_inser_lista_servidor permite consultar a lista do servidor e inserir um novo arquivivo/IP nela.
 
 Compilação no CMD:
 Abrir uma janela para compilar o código e digitar os comandos:

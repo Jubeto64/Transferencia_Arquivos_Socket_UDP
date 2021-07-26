@@ -52,15 +52,38 @@ void escrever_arquivo(t_arquivo arquivos){
 
 int main(int argc, char *argv[]){
 	t_arquivo aux_arquivos[MAX];
+	t_arquivo novo_arquivo;
 
 	int len_vet = ler_arquivo(aux_arquivos);
-	int i;
+	int i, opcao;
 
-	// mostrando os elementos do vetor aux_arquivos
-	for(i = 0; i < len_vet; i++){
-		printf("Nome: %s\n", aux_arquivos[i].nome);
-		printf("IP: %s\n\n", aux_arquivos[i].ip);
+	while(opcao != 3){
+        printf("\tMenu\nEscolha uma opcao: \n1. Ler lista de arquivos\n2. Inserir novo arquivo e IP\n3. Sair\n");
+        
+        printf("Digite a opcao que deseja: ");
+        scanf("%d", &opcao);
+
+        switch(opcao){
+            case 1:
+				// mostrando os elementos do vetor aux_arquivos
+				for(i = 0; i < len_vet; i++){
+					printf("Nome: %s\n", aux_arquivos[i].nome);
+					printf("IP: %s\n\n", aux_arquivos[i].ip);
+				}
+			break;
+			case 2:
+				printf("Digite o nome do arquivo: ");
+                scanf("%s", novo_arquivo.nome);
+				printf("Digite o IP do arquivo: ");
+                scanf("%s", novo_arquivo.ip);
+				escrever_arquivo(novo_arquivo);
+			break;
+			case 3:
+            break;
+
+            default:
+                printf("Opcao invalida!\n");
+		}
 	}
-
 	return 0;
 }
