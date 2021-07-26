@@ -19,8 +19,8 @@ int CheckSum(char *s, int size, int portaEntrada, int PortaDestino)
     for (i = 0; i < size; i++)
         chkSum += (s[i] * i);
     chkSum = chkSum + portaEntrada + PortaDestino;
-    StringBinaria = ParaBinario(chkSum);
-    IntBinario = atoi(StringBinaria);
+    /*StringBinaria = ParaBinario(chkSum);
+    IntBinario = atoi(StringBinaria);*/
     return chkSum;
 }
 
@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 {
 	char mensagem[50] = "insirindo uma mensagem aleatoria";	
     printf("CheckSum de %s: ", &mensagem);
-	printf("%lld\n", CheckSum(mensagem, 50, 1500, 1501));
+	printf("%lld\n", CheckSum(mensagem, sizeof(mensagem), 1500, 1501));
 
     return 0;
 }
