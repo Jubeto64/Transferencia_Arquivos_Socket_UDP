@@ -10,7 +10,27 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
-void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_arquivo[MAX_MSG]){
+int CheckSum(char *s, int size, int portaEntrada, int PortaDestino)
+{
+    long long chkSum = 0;
+    char StringBinaria;
+    int IntBinario, i;
+    for (i = 0; i < size; i++)
+        chkSum += (s[i] * i);
+    chkSum = chkSum + portaEntrada + PortaDestino;
+    return chkSum;
+}
+
+int main(int argc, char** argv)
+{
+	char mensagem[50] = "insirindo uma mensagem aleatoria";	
+    printf("CheckSum de %s: ", &mensagem);
+	printf("%lld\n", CheckSum(mensagem, 50, 1500, 1501));
+
+    return 0;
+}
+
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_arquivo[MAX_MSG]/*, int checksum*/){
     //tipo 0 cliente recebe resposta do servidor
     //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
     //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
@@ -111,7 +131,7 @@ void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_ar
     WSACleanup();
 }
 
-void envia_resposta(char mensagem[MAX_MSG][MAX_MSG], int tipo){
+void envia_resposta(char mensagem[MAX_MSG][MAX_MSG], int tipo/*, int checksum*/){
     //tipo 0 cliente enviar a solicitacao do arquivo para o servidor
     //tipo 1 cliente enviar a solicitação do arquivo para outro cliente
     //tipo 2 cliente que possui o arquivo enviar resposta para o cliente que pediu o arquivo
@@ -227,6 +247,7 @@ int main(int argc, char *argv[]) {
         strcpy(mensagem[k], "");
 
     int opcao = 1;
+    //int checksum = 0;
 
     while(opcao != 3){
         printf("\tMenu\nEscolha uma opcao: \n1. Solicitar arquivo\n2. Enviar arquivo\n3. Sair\n");
@@ -243,29 +264,37 @@ int main(int argc, char *argv[]) {
                 scanf("%s", &nome_arquivo);
                 strcpy(mensagem[0], nome_arquivo);
 
-                envia_resposta(mensagem,0);
+                //checksum = CheckSum(mensagem, sizeof(mensagem), LOCAL_CLIENT_PORT, LOCAL_SERVER_PORT);
 
-                recebe_resposta(vet_resposta, 0,"");
+                envia_resposta(mensagem,0/*,checksum*/);
 
-                for(k=0; k<MAX_MSG; k++){      
-                    if(strcmp(vet_resposta[k],"") != 0){
-                        printf("Resposta Recebida pelo Servidor: %s\n", vet_resposta[k]);
+                recebe_resposta(vet_resposta, 0,""/*,checksum*/);
 
-                        envia_resposta(mensagem, 1);//enviando solicitacao para o cliente com o arquivo
+                //while(checksum != checksumresposta)
+                //{
+                    for(k=0; k<MAX_MSG; k++)
+                    {      
+                        if(strcmp(vet_resposta[k],"") != 0){
+                            printf("Resposta Recebida pelo Servidor: %s\n", vet_resposta[k]);
 
-                        for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
-                            strcpy(vet_resposta_cli[k], "");
-                        
-                        recebe_resposta(vet_resposta_cli, 1,nome_arquivo);//recebendo resposta do cliente com o arquivo
-                        printf("Resposta Recebida do outro clinte: %s\n", vet_resposta_cli[0]);
-                        if(strcmp(vet_resposta_cli[0],"Arquivo Recebido") == 0){
-                            strcpy(mensagem[1], "127.0.0.5");
-                            envia_resposta(mensagem,0);
-                            break;
-                        }
-                    }                        
-                    else break;
-                }
+                            envia_resposta(mensagem, 1);//enviando solicitacao para o cliente com o arquivo
+
+                            for(k = 0; k<MAX_MSG; k++)//inicializando o vetor de respostas com strings vazias
+                                strcpy(vet_resposta_cli[k], "");
+                            
+                            recebe_resposta(vet_resposta_cli, 1,nome_arquivo);//recebendo resposta do cliente com o arquivo
+                            printf("Resposta Recebida do outro clinte: %s\n", vet_resposta_cli[0]);
+                            if(strcmp(vet_resposta_cli[0],"Arquivo Recebido") == 0){
+                                strcpy(mensagem[1], "127.0.0.5");
+                                envia_resposta(mensagem,0);
+                                break;
+                            }
+                        }                        
+                        else break;
+                    }
+                //}
+
+                
             break;
 
             case 2:
