@@ -1,3 +1,10 @@
+Grupo:
+João Victor do Nascimento - 2019003332
+José Victor de Carvalho Silva - 2019005284
+Jubeto José de Oliveira - 2019004572
+Matheus Gabriel Cruz Mendez - 2018010870
+
+
 Este Programa deve ser executado no sistema operacional Windows
 
 Como executar:

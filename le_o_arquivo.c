@@ -33,6 +33,23 @@ int ler_arquivo(t_arquivo aux_arquivos[MAX]){
 	}
 }
 
+void escrever_arquivo(t_arquivo arquivos){
+	int i;
+	FILE * arq;
+
+	// abre o arquivo para escrita no modo append (adiciona ao final)
+	arq = fopen("dados.bin", "ab");
+
+	if(arq != NULL){
+		fwrite(&arquivos, sizeof(t_arquivo), 1, arq);// escreve cada elemento do vetor no arquivo
+		fclose(arq); // aborta o programa
+	}else{
+		printf("\nErro ao abrir o arquivo para leitura!\n");
+		exit(1); // aborta o programa
+	}
+}
+
+
 int main(int argc, char *argv[]){
 	t_arquivo aux_arquivos[MAX];
 
