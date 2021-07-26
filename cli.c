@@ -10,6 +10,27 @@
 #define REMOTE_SERVER_PORT 1500
 #define MAX_MSG 100
 
+int CheckSum(char *s, int size, int portaEntrada, int PortaDestino)
+{
+    long long chkSum = 0;
+    char StringBinaria;
+    int IntBinario, i;
+    for (i = 0; i < size; i++)
+        chkSum += (s[i] * i);
+    chkSum = chkSum + portaEntrada + PortaDestino;
+    return chkSum;
+}
+
+int main(int argc, char** argv)
+{
+	char mensagem[50] = "insirindo uma mensagem aleatoria";	
+    printf("CheckSum de %s: ", &mensagem);
+	printf("%lld\n", CheckSum(mensagem, 50, 1500, 1501));
+
+    return 0;
+}
+
+void recebe_resposta(char vet_resposta[MAX_MSG][MAX_MSG], int tipo, char nome_arquivo[MAX_MSG]/*, int checksum*/){
     //tipo 0 cliente recebe resposta do servidor
     //tipo 1 cliente que pediu o arquivo recece resposta do cliente que possui o arquivo
     //tipo 2 cliente que possui o arquivo recebe resposta do cliente que pediu o arquivo
